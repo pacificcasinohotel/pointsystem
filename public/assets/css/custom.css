@@ -1,0 +1,77 @@
+i.nav-fa-user:before { 
+font-family: FontAwesome; 
+content: "\f007"; 
+}
+
+i.nav-fa-groups:before { 
+font-family: FontAwesome; 
+content: "\f0c0"; 
+}
+
+i.nav-fa-permission:before { 
+font-family: FontAwesome; 
+content: "\f084"; 
+}
+
+i.nav-fa-customer:before { 
+font-family: FontAwesome; 
+content: "\f183"; 
+}
+
+i.nav-fa-order:before { 
+font-family: FontAwesome; 
+content: "\f07a"; 
+}
+
+i.nav-fa-settings:before { 
+font-family: FontAwesome; 
+content: "\f085"; 
+}
+
+i.nav-fa-reports:before { 
+font-family: FontAwesome; 
+content: "\f0c5"; 
+}
+
+i.nav-fa-invoice:before{
+font-family: FontAwesome; 
+content: "\f02a"; 
+}
+
+i.nav-fa-player:before{
+font-family: FontAwesome; 
+content: "\f118"; 
+}
+
+i.nav-fa-product:before{
+font-family: FontAwesome; 
+content: "\f07a"; 
+}
+
+
+i.nav-fa-games:before{
+font-family: FontAwesome; 
+content: "\f11b"; 
+}
+
+
+i.nav-fa-bet:before{
+font-family: FontAwesome; 
+content: "\f0d6"; 
+}
+
+i.nav-fa-roulette:before{
+font-family: FontAwesome; 
+content: "\f108"; 
+}
+
+#loading{
+   position: absolute;
+   top: 45%;
+   left: 53%;
+}
+
+/*#content{
+	display: none;
+}*/
+        
