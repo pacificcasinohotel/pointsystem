@@ -11,15 +11,15 @@ class Settings extends Eloquent {
 
 	public static function getSettingValue($name)
 	{
-		$setting = Settings::where('name', $name)->get();
+		$setting = Settings::where('name', $name)->get()->first();
 
-		if($setting->count() > 0)
+		if(!empty($setting))
 		{
-			return $setting[0]->value;
+			return $setting->value;
 		}
 		else
 		{
-			return 0;
+			return false;
 		}
 	}
 

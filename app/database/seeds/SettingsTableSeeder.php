@@ -14,6 +14,14 @@ class SettingsTableSeeder extends Seeder {
                 'type'         => 'configurable',
                 'created_at'   => new DateTime,
                 'updated_at'   => new DateTime,
+            ),
+            array(
+                'name'         => 'points_conversion',
+                'display_name' => 'Points Conversion',
+                'value'        => '50',
+                'type'         => 'configurable',
+                'created_at'   => new DateTime,
+                'updated_at'   => new DateTime,
             )
         );
 

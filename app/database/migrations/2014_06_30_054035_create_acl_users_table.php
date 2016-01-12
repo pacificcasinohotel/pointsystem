@@ -17,8 +17,8 @@ class CreateAclUsersTable extends Migration {
         {
             $table->increments('id');
             $table->string('username')->unique();
-            $table->string('fullname');
-            $table->string('email');
+            $table->string('fullname')->nullable();
+            $table->string('email')->nullable();
             $table->string('company_name')->nullable();
             $table->string('ip_address', 39);
             $table->text('return_url')->nullable();

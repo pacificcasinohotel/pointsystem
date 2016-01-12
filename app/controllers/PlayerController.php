@@ -13,11 +13,9 @@ class PlayerController extends \BaseController {
 			return Redirect::action('dashboard');
 		}
 
-		$userList   = UserMember::with('user','group','points')->where('group_id', 4)->get();
-		
+		$form_open  = Form::open(array('method' => 'post', 'files' => true ,'id' => 'form-player-csv' , 'class' => 'smart-form' , 'role' => 'form')); 
 
-		// echo json_encode($userList->toArray());
-		// exit;
+		$userList   = UserMember::with('user','group','points')->where('group_id', 4)->get();
 
 		$title 		= Lang::get('Player List');
 		$status 	= array('0' => array('label'   => 'default' ,'status'  => 'Inactive'), 
@@ -29,7 +27,8 @@ class PlayerController extends \BaseController {
 			'acl' 		 => ACL::buildACL(), 
 			'userList'	 => $userList,
 			'title'		 => $title,
-			'status'	 => $status
+			'status'	 => $status,
+			'form_open'  => $form_open
 		);
 
 		return View::make('player/index',$data);
@@ -429,4 +428,75 @@ class PlayerController extends \BaseController {
 		return Response::json($response,$response['status']);
 	}
 
+	public function upload()
+	{
+
+		if (Input::hasFile('playerfile'))
+		{
+			$file = Input::file('playerfile');
+			
+			$up = Excel::load($file, function($reader) {
+			
+			$results = $reader->get()->toArray();
+			
+			foreach ($results as $row) {
+
+				$player_group_id = Group::where('name' , 'Player')->firstOrFail();
+
+				$days	= new DateTime(date('Y-m-d H:i:s', strtotime("+30 days")));
+
+				$player_account = array(
+					'email'     => '',
+					'password'  => Hash::make(''),
+					'confirmed' => 1,
+					'status'    => 1,
+					'password_expiration_date' => $days,
+					'account_expiration_date'  => $days,
+					'created_at'    => new DateTime,
+					'updated_at'    => new DateTime
+				);
+
+				foreach ($row as $key => $value) {
+					$player_account[$key] = $value;
+				}
+
+				try{
+					$add_account = User::create($player_account);
+
+					$user_member = array(
+						'user_id'	=> $add_account->id,
+						'group_id' 	=> $player_group_id->id,
+						'date_created'	=> new DateTime
+					);
+
+					$add_member = UserMember::create($user_member);
+
+					$player_points = array('account_id' => $add_account->id);
+
+					$add_points = Points::create($player_points);
+
+				}
+				catch(Exception $e){
+					// return false;
+				}
+			}
+
+			});
+			
+			if($up){
+				$messages 	= 'Upload Successful.';
+				$status 	= 'success';
+			}
+			else{
+				$messages 	= 'Upload failed.';
+				$status 	= 'error';
+			}
+			
+			return Redirect::route('player.index')->with($status, $messages);
+		}
+		else
+		{
+			return Redirect::action('player.index')->with('error', 'Please select a Excel or CSV File.');
+		}
+	}
 }

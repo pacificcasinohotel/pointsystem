@@ -36,7 +36,8 @@ Route::group(array('prefix' => 'admin/v1/'), function()
 	Route::get('user/profile/',	array('as' => 'user.profile','before'=> 'auth|auth.session|auth.status','uses' => 'UsersController@profile'));
 	Route::post('user/profile/',	array('as' => 'user.profile','before'=> 'auth|auth.session|auth.status','uses' => 'UsersController@profile'));
 	Route::get('user/reset_password/{id}',	array('as' => 'user.reset','before'=> 'auth|auth.session|auth.status','uses' => 'UsersController@resetPassword'));
-	
+
+	Route::get('redeem/points/',  array('as'=>'redeem.points','uses' => 'RedeemPointsController@index'));
 });
 
 
@@ -90,19 +91,9 @@ Route::group(array('prefix' => 'admin/v1/','before'=>'auth|auth.session|auth.sta
 	Route::get('settings/edit/{id}', array('as' => 'settings.edit','uses' => 'SettingsController@edit'));
 	Route::post('settings/update/{id}', array('as' => 'settings.update','before' => 'csrf','uses' => 'SettingsController@update'));
 
-	// //Games Management
-	// Route::get('games', array('as' => 'games.index','uses' => 'GameController@index'));
-	// Route::get('games/roulette', array('as' => 'games.roulette','uses' => 'GameController@index'));
-	// Route::get('games/create', array('as' => 'games.create','uses' => 'GameController@create'));	
-	// Route::post('games/store', array('as' => 'games.store','uses' => 'GameController@store'));
-	// Route::get('games/show/{id}', 	array('as'=>'games.show','uses' => 'GameController@show'));
-	// Route::get('games/operate', array('as' => 'games.operate','uses' => 'GameController@operate'));
-	// Route::any('games/winnings', array('as' => 'games.winnings','uses' => 'GameController@winnings'));
-	// Route::get('games/edit/{id}', array('as' => 'games.edit','uses' => 'GameController@edit'));
-	// Route::put('games/update/{id}', array('as' => 'games.update','uses' => 'GameController@update'));
-
-	// //Player Management
+	//Player Management
 	Route::get('player/', array('as' => 'player.index','uses' => 'PlayerController@index'));
+	Route::post('player/', array('as' => 'player.upload','uses' => 'PlayerController@upload'));
 	Route::get('player/show/{id}', 	array('as'=>'player.show','uses' => 'PlayerController@show'));
 	Route::get('player/create', array('as' => 'player.create','uses' => 'PlayerController@create'));
 	Route::post('player/store', array('as' => 'player.store','before' => 'csrf','uses' => 'PlayerController@store'));
@@ -110,20 +101,9 @@ Route::group(array('prefix' => 'admin/v1/','before'=>'auth|auth.session|auth.sta
 	Route::get('player/edit/{id}', array('as' => 'player.edit','uses' => 'PlayerController@edit'));
 	Route::put('player/update/{id}', array('as' => 'player.update','before' => 'csrf','uses' => 'PlayerController@update'));
 	
-	// //Reports Management
-	// Route::get('reports', array('as'=>'reports.index','uses' => 'ReportsController@index'));
-	// Route::get('reports/deposit', array('as'=>'reports.deposit','uses' => 'ReportsController@deposit'));
-	// Route::get('reports/redeem', array('as'=>'reports.redeem','uses' => 'ReportsController@redeem'));
-	// Route::get('reports/winnings', array('as'=>'reports.winnings','uses' => 'ReportsController@winnings'));
-
-	// //Bet
-	// Route::any('bet', array('as'=>'bet.index','uses' => 'BetController@index'));
-	// Route::any('bet/roulette', array('as'=>'bet.roulette','uses' => 'BetController@roulette'));
-	// Route::post('bet/place', array('as'=>'bet.place','uses' => 'BetController@store'));
-
-	// //Operate
-	// Route::get('roulette', array('as'=>'roulette.index','uses' => 'OperateContoller@start'));
-	// Route::get('roulette', array('as'=>'roulette.start','uses' => 'OperateContoller@start'));
-	// Route::post('roulette', array('as'=>'roulette.deposit','uses' => 'OperateContoller@deposit'));
-
+	//Points Management
+	Route::get('points', array('as'=>'points.index','uses' => 'PointsController@player'));
+	Route::post('points', array('as'=>'points.index','uses' => 'PointsController@bets'));
+	Route::get('points', array('as'=>'points.player','uses' => 'PointsController@player'));
+	Route::get('points/logout/{id}',array('as'=>'points.logout','uses' => 'PointsController@logout'));
 });

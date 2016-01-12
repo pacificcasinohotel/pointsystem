@@ -13,22 +13,6 @@
         <!--<h1 class="page-title txt-color-blueDark">
             <i class="fa fa-table fa-fw "></i> User <span>> List </span>
             </h1> -->
-            @if (array_key_exists('player.create',$acl['access']))
-            <a href="{{{ URL::action('player.create') }}}" class="btn btn-labeled btn-success"> 
-                <span class="btn-label">
-                    <i class="fa fa-user"></i>
-                </span>Add Player 
-            </a>
-            @endif
-
-            @if (array_key_exists('player.import',$acl['access']))
-            <a data-toggle="modal" data-target="#myModal" class="btn btn-labeled btn-primary"> 
-                <span class="btn-label">
-                    <i class="fa fa-file-excel-o"></i>
-                </span>CSV Upload 
-            </a>
-            @endif
-
         </div>
 
          <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
@@ -73,31 +57,26 @@
                                     <tr>
                                         <th><i class="fa fa-fw fa-user text-muted hidden-md hidden-sm hidden-xs"></i> PlayerName</th>
                                         <th>Fullname</th>
-                                        <th><i class="fa fa-fw fa-send-o txt-color-blue hidden-md hidden-sm hidden-xs"></i> Email</th>
+                                        <th><i class="fa fa-fw fa-gift txt-color-blue hidden-md hidden-sm hidden-xs"></i> Player Points</th>
                                         <th><i class="fa fa-fw fa-credit-card txt-color-blue hidden-md hidden-sm hidden-xs"></i> Serial Number</th>
-                                        <th>Status</th>
-                                        <th><i class="fa fa-fw fa-calendar txt-color-blue hidden-md hidden-sm hidden-xs"></i> Created</th>
                                         <th>{{{ Lang::get('table.actions') }}}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @if (!empty($userList))
-                                        @foreach($userList as $row) 
+                                        @foreach($userList as $row)
+                                            @if($row->user->rfid_login == 1) 
                                     <tr>    
                                         <td>{{ $row->user->username }}</td>
                                         <td>{{ $row->user->fullname }}</td>
-                                        <td>{{ $row->user->email }}</td>
+                                        <td>{{ $row->points->credits }}</td>
                                         <td>{{ $row->user->rfid_serial }}</td>
-                                        <td>{{ $status[$row->user->confirmed]['status'] }}</td>
-                                        <td>{{ $row->user->created_at }}</td>
                                         <td>
-                                        @if (array_key_exists('user.edit',$acl['access']))
-                                            <a href="{{{ URL::route('player.edit', $row->user->id) }}}" class="btn btn-sm btn-success">
-                                                <span class="glyphicon glyphicon-pencil"></span>
-                                            </a>
-                                        @endif
+                                            <a data-playerid="{{$row->user->id}}" data-toggle="modal" data-target="#myModal" class= "btn btn-sm btn-success"><span class="fa fa-plus-circle"></span></a>
+                                            <a href="{{ URL::action('points.logout',$row->user->id) }}" class="btn btn-sm btn-danger" title="Logout Player"><span class="fa fa-sign-out"></span></a>                                       
                                         </td>
                                     </tr>
+                                        @endif
                                     @endforeach
                                     @endif
                                 </tbody>
@@ -117,61 +96,27 @@
 </div>
 <!-- END MAIN CONTENT -->
 <!-- ui-dialog -->
-<!-- <div id="dialog_simple" title="Dialog Simple Title" tabindex="-1">
-    <form id="add-credit-form" class="smart-form" method="POST" action="">
-        {{ Form::token() }}
-            <fieldset>
-                <div class="form-group has-success">
-                    <div class="col-md-10">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-                            <input class="form-control wallet_credits" type="text" id="credits" name="credits">
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-            <input type="hidden" name="option" value="deposit">                
-    </form> 
-</div>
 
-<div id="dialog_withdraw" title="Dialog Simple Title" tabindex="-1">
-    <form id="withdraw-credit-form" class="smart-form" method="POST" action="">
-        {{ Form::token() }}
-            <fieldset>
-                <div class="form-group has-error">
-                    <div class="col-md-10">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-                            <input class="form-control withdraw_credits" type="text" id="credits" name="credits">
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-            <input type="hidden" name="option" value="withdraw">                
-    </form> 
-</div> -->
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Upload Players</h4>
+                    <h4 class="modal-title" id="myModalLabel">Add Player Bets</h4>
             </div>
         <div class="modal-body">
 
             <div class="row">
                 <div class="col-md-12">
                     <div class="well well-sm well-primary">
-                         {{ $form_open }}
-                            <div class="form-group">
-                                <div class="input input-file">
-                                <span class="button">
-                                    <input type="file" id="playerfile" name="playerfile" onchange="this.parentNode.nextSibling.value = this.value">Browse</span><input type="text" placeholder="Include some files" readonly="">
-                                </div>
-                            </div>
+                    <form id="withdraw-credit-form" class="smart-form" method="POST" action="">
+                     {{ Form::token() }}
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                            <input class="form-control player_bets" type="text" id="bets" name="bets">
 
-                       
+                        </div>
                     </div>
                 </div>
             </div>
@@ -179,9 +124,9 @@
        
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <button id="player-csv" type="submit" class="btn btn-primary">Upload</button>
+            <button id="player-csv" type="submit" class="btn btn-primary">Add Bet</button>
         </div>
-        {{ Form::close() }}
+        </form>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->

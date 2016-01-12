@@ -192,6 +192,41 @@ class PermissionsTableSeeder extends Seeder {
         $permission->date_created = new DateTime;
         $permission->save();
 
+
+        $permission = new Permission;
+        $permission->perm_name = 'Import Player using CSV/Excel';
+        $permission->perm_key  = 'player.import';
+        $permission->perm_description  = 'Import Player using CSV / Excel';
+        $permission->visible   = 0;
+        $permission->date_created = new DateTime;
+        $permission->save();
+
+        
+        $permission = new Permission;
+        $permission->perm_name = 'Points System';
+        $permission->perm_key  = 'points.index';
+        $permission->perm_description = '';
+        $permission->visible   = 0;
+        $permission->date_created = new DateTime;
+        $permission->save();
+
+        $permission = new Permission;
+        $permission->perm_name = 'Player List';
+        $permission->perm_key  = 'points.player';
+        $permission->perm_description  = 'Player List';
+        $permission->visible   = 1;
+        $permission->date_created = new DateTime;
+        $permission->save();
+
+        $permission = new Permission;
+        $permission->perm_name = 'Player Bets';
+        $permission->perm_key  = 'points.bets';
+        $permission->perm_description  = 'Player Bets';
+        $permission->visible   = 0;
+        $permission->date_created = new DateTime;
+        $permission->save();
+
+
         // $permission = new Permission;
         // $permission->perm_name = 'Winning Number';
         // $permission->perm_key  = 'reports.winnings';

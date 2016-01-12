@@ -38,14 +38,14 @@
 					<!-- widget content -->
 					<div class="widget-body no-padding">
 						
-						{{$formOpen}}
+						{{$form_open}}
 						{{ Form::token() }}
 							<header>Player Credentials</header>
 
 							<fieldset>
 								<section>
 									<label class="input"> <i class="icon-append fa fa-user"></i>
-										<input type="text" name="username" id="username" placeholder="Username" value="{{ Input::old('username') }}">
+										<input class="form-control" type="text" name="username" id="username" placeholder="Username" value="{{ $player_info->username }}" disabled="disabled">
 										<b class="tooltip tooltip-bottom-right">Needed to enter the webtool</b> </label>
 								</section>
 								
@@ -53,7 +53,7 @@
 								
 								<section>
 									<label class="input"> <i class="icon-append fa fa-envelope-o"></i>
-										<input type="email" name="email" placeholder="Email address" value="{{ Input::old('email') }}">
+										<input type="email" name="email" placeholder="Email address" value="{{ $player_info->email }}">
 										<b class="tooltip tooltip-bottom-right">Needed to verify your account</b> </label>
 								</section>
 
@@ -63,7 +63,7 @@
 								<div class="row">
 									<section class="col col-6">
 										<label class="input">
-											<input type="text" name="fullname" placeholder="Full name" value="{{ Input::old('fullname') }}">
+											<input type="text" name="fullname" placeholder="Full name" value="{{ $player_info->fullname }}">
 										</label>
 									</section>
 								</div>
@@ -79,8 +79,8 @@
 										<div class="col-sm-12">
 													<div class="input-group">
 														<span class="input-group-addon"><a id="rfid_serial"><i class="fa fa-credit-card"></i></a> </span>
-														<input data-rfid="{{ $url_rfid }}" class="form-control rfid_serial_input" id="appendprepend" type="text" name="rfid_serial_show" readonly=""> 
-														<input type="hidden" id="hidden_rfid_serial" name="rfid_serial" value="">
+														<input data-rfid="{{ $url_rfid }}" class="form-control rfid_serial_input" id="appendprepend" type="text" name="rfid_serial_show" value="{{ $player_info->rfid_serial }}" readonly=""> 
+														<input type="hidden" id="hidden_rfid_serial" name="rfid_serial" value="{{ $player_info->rfid_serial }}">
 													</div>
 											</div>
 										</div>		
@@ -89,11 +89,11 @@
 
 							<footer>
 								<button type="submit" class="btn btn-primary">
-									Create Player
+									Submit Form
 								</button>
 								<a href="{{{ URL::action('player.index') }}}" class="btn btn-danger">Cancel</a>
 							</footer>
-						{{$formClose}}					
+						{{$form_close}}					
 						
 					</div>
 					<!-- end widget content -->

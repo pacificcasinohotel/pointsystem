@@ -165,7 +165,16 @@ $(document).ready(function() {
         $('#dialog-message').dialog('open');
         return false;
       });
-    
+
+      $('#myModal').on('show.bs.modal',function(e){
+
+      //get data-id attribute of the clicked element
+      var playerid = $(e.relatedTarget).data('playerid');
+      
+      $('#withdraw-credit-form').append('<input type="hidden" id="account_id" name="account_id" value="'+playerid+'">');
+      $('.player_bets').autoNumeric('init', {aSep: '', vMin: '0.00' , vMax: '999999.99'});
+      });
+
         // DO NOT REMOVE : GLOBAL FUNCTIONS!
         pageSetUp();
 
