@@ -102,19 +102,19 @@
                                         <td>{{ date("M d Y h:i:s A",strtotime($row->date_updated)) }} </td>
                                         <td>
                                             @if (array_key_exists('groups.show',$acl['access']))
-                                            <a href="{{{ URL::to('admin/v1/groups/show') }}}/{{ $row->id }}" class="btn btn-sm btn-primary">
+                                            <a href="{{{ URL::action('groups.show', $row->id) }}}" class="btn btn-sm btn-primary">
                                                 <span class="glyphicon glyphicon-eye-open"></span>
                                             </a>
                                             @endif
 
                                             @if (array_key_exists('groups.edit',$acl['access']))
-                                            <a href="{{{ URL::to('admin/v1/groups/edit') }}}/{{ $row->id }}" class="btn btn-sm btn-success">
+                                            <a href="{{{ URL::action('groups.edit', $row->id) }}}" class="btn btn-sm btn-success">
                                                 <span class="glyphicon glyphicon-pencil"></span>
                                             </a>
                                             @endif
 
                                             @if (array_key_exists('groups.delete',$acl['access']))
-                                            <a href="{{{ URL::to('admin/v1/groups/delete') }}}/{{ $row->id }}" class="btn btn-sm btn-danger">
+                                            <a href="{{{ URL::action('groups.delete', $row->id) }}}" class="btn btn-sm btn-danger">
                                                 <span class="glyphicon glyphicon-trash"></span>
                                             </a>
                                             @endif

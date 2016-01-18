@@ -45,39 +45,82 @@
 
             <!-- MAIN CONTENT -->
 
-            <form class="lockscreen animated flipInY" action="index.html">
+            <form class="lockscreen animated flipInY">
+                @include('notifications')
                 <div class="logo">
                     <h1 class="semi-bold"><img src="{{asset('assets/img/logo-o.png')}}" alt="" /> Player Redeem Points</h1>
                 </div>
                 <div>
                     <img src="{{asset('assets/img/chips.png')}}" alt="" width="130" height="104"/>
                     <div>
-                        <h1><i class="fa fa-credit-card fa-3x text-muted air air-top-right hidden-mobile"></i><small>Redemption process</small></h1>
+                        <h1><i class="fa fa-credit-card fa-3x text-muted air air-top-right hidden-mobile"></i><strong><small>Redemption process</small></strong></h1>
 
-                        <p class="text-muted">1. Place the card in the card reader</p>
-                        <p class="text-muted">2. Press "Redeem Points" button</p>
+                        <p class="text-muted">1. Place the <strong>"Card"</strong> in the <strong>Card Reader</strong></p>
+                        <p class="text-muted">2. Press <strong>"Redeem Points"</strong> Button</p>
 
                         <div class="input-group">
                             
                             <div class="input-group-btn">
-                            <a href="#" class="btn btn-primary btn-block"><i class="fa fa-gift"></i> Reedem Points</a>
+                           <button  data-rfid="{{ $url_rfid }}" type="button" class="btn btn-danger btn-block redeem_points">
+                           <i class="fa fa-gift"></i> Redeem Points</button>
                             </div>
                         </div>
                     </div>
 
                 </div>
                 <p class="font-xs margin-top-5">
-                    Copyright Rapnx Solution Inc. 2014-2020.
-
+                    Copyright Rapnx Solution Inc. 2016.
                 </p>
             </form>
 
         </div>
 
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="modalRedeemLabel"></h4>
+                    </div>
+                        <div class="modal-body">
+                            <div class="alert alert-info alert-block">
+                                <h4 class="alert-heading" id="player_points"></h4>
+                            </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <form id="points-redeem-form" class="smart-form" method="POST" action="">
+                                        {{ Form::token() }}
+                                        <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                        
+                                        <label class="input" id="playerPointsRedeem">
+                                            <input class="form-control player_points_redeem" type="text" id="points_redeemed" name="points">
+                                        </label>
+                                        
+                                        <input type="hidden" id="confirm_points" name="confirm_points">
+                                        <input type="hidden" id="player_id" name="player_id">
+                                    </div>
+                                    <div class="note note-error"></div>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default"  data-dismiss="modal">
+                                    Cancel
+                                </button>
+                                <button type="button" class="btn btn-primary confirm_redemption">
+                                    Confirm Points Redemptions
+                                </button>
+                            </form>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+
         <!--================================================== -->  
 
         <!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)-->
-        <script src="js/plugin/pace/pace.min.js"></script>
 
         <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -86,11 +129,15 @@
         <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
         <script> if (!window.jQuery.ui) { document.write('<script src="js/libs/jquery-ui-1.10.3.min.js"><\/script>');} </script>
 
-        {{ HTML::script('assets/js/app.config.js') }}
+        {{ HTML::script('assets/js/plugin/pace/pace.min.js') }}
         {{ HTML::script('assets/js/bootstrap/bootstrap.min.js') }}
         {{ HTML::script('assets/js/plugin/jquery-validate/jquery.validate.min.js') }}
         {{ HTML::script('assets/js/plugin/masked-input/jquery.maskedinput.min.js') }}
+        {{ HTML::script('assets/js/notification/SmartNotification.min.js') }}  
+        {{ HTML::script('assets/js/smartwidgets/jarvis.widget.min.js') }}  
         {{ HTML::script('assets/js/app.min.js') }}
+        {{ HTML::script('assets/js/autoNumeric.js') }}
+        {{ HTML::script('assets/js/libs/pointsys.js') }}
 
     </body>
 </html>

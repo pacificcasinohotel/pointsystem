@@ -16,10 +16,12 @@ class CreatePlayerRedeemCouponTable extends Migration {
         {
 	        $table->increments('id')->unsigned();
 	        $table->integer('player_id',false)->unsigned();
+	        $table->integer('redeem_by',false)->unsigned();
 	        $table->string('coupon_code')->nullable();
 	        $table->decimal('points', 15, 2)->default(0);
 	        $table->boolean('redeemed')->default(false);
 	        $table->foreign('player_id')->references('id')->on('acl_users');
+	        $table->foreign('redeem_by')->references('id')->on('acl_users');
 	        $table->timestamps();
 		});
 	}
@@ -31,7 +33,7 @@ class CreatePlayerRedeemCouponTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('player_redeem_coupon');
+		Schema::drop('player_coupon');
 	}
 
 }

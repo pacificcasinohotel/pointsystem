@@ -7,6 +7,28 @@ class ReportsController extends \BaseController {
 	 *
 	 * @return Response
 	 */
+
+
+
+	public function coupon()
+	{
+		if(ACL::checkUserPermission('reports.redeem') == false){
+			return Redirect::action('dashboard');
+		}
+
+		$coupon = Coupon::with('playerdetails','redeemer')->get();
+
+		$title   = 'Points Redeemed Report';
+
+		$data = array(
+			'acl' 	   => ACL::buildACL(), 
+			'coupon'   => $coupon,
+			'title'	   => $title);
+
+		return View::make('reports/redeem',$data);
+
+	}
+
 	public function deposit()
 	{
 

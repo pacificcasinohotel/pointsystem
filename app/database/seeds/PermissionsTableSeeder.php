@@ -219,6 +219,14 @@ class PermissionsTableSeeder extends Seeder {
         $permission->save();
 
         $permission = new Permission;
+        $permission->perm_name = 'Reemdem Points';
+        $permission->perm_key  = 'points.redeem';
+        $permission->perm_description  = 'Reemdem Points';
+        $permission->visible   = 1;
+        $permission->date_created = new DateTime;
+        $permission->save();
+
+        $permission = new Permission;
         $permission->perm_name = 'Player Bets';
         $permission->perm_key  = 'points.bets';
         $permission->perm_description  = 'Player Bets';
@@ -226,46 +234,13 @@ class PermissionsTableSeeder extends Seeder {
         $permission->date_created = new DateTime;
         $permission->save();
 
-
-        // $permission = new Permission;
-        // $permission->perm_name = 'Winning Number';
-        // $permission->perm_key  = 'reports.winnings';
-        // $permission->perm_description = 'Game winning report';
-        // $permission->visible   = 1;
-        // $permission->date_created = new DateTime;
-        // $permission->save();
-
-        // $permission = new Permission;
-        // $permission->perm_name = 'Redeemed Credits';
-        // $permission->perm_key  = 'reports.redeem';
-        // $permission->perm_description = '';
-        // $permission->visible   = 1;
-        // $permission->date_created = new DateTime;
-        // $permission->save();
-
-        // $permission = new Permission;
-        // $permission->perm_name = 'Bought Credits';
-        // $permission->perm_key  = 'reports.deposit';
-        // $permission->perm_description = '';
-        // $permission->visible   = 1;
-        // $permission->date_created = new DateTime;
-        // $permission->save();
-
-        // $permission = new Permission;
-        // $permission->perm_name = 'Roulette';
-        // $permission->perm_key  = 'bet.roulette';
-        // $permission->perm_description = '';
-        // $permission->visible   = 1;
-        // $permission->date_created = new DateTime;
-        // $permission->save();
-
-        // $permission = new Permission;
-        // $permission->perm_name = 'Start Game';
-        // $permission->perm_key  = 'roulette.start';
-        // $permission->perm_description = '';
-        // $permission->visible   = 1;
-        // $permission->date_created = new DateTime;
-        // $permission->save();
+        $permission = new Permission;
+        $permission->perm_name = 'Points Redeemed';
+        $permission->perm_key  = 'reports.redeem';
+        $permission->perm_description  = 'Points Redeemed';
+        $permission->visible   = 1;
+        $permission->date_created = new DateTime;
+        $permission->save();
 
         $this->command->info('Permission table seeded!');
     }

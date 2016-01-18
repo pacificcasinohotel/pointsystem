@@ -25,7 +25,7 @@
             <a data-toggle="modal" data-target="#myModal" class="btn btn-labeled btn-primary"> 
                 <span class="btn-label">
                     <i class="fa fa-file-excel-o"></i>
-                </span>CSV Upload 
+                </span>Excel Upload 
             </a>
             @endif
 

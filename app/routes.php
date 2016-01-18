@@ -22,10 +22,10 @@ Route::model('roles', 'Role');
 
 Route::get('/', function()
 {
-	return Redirect::to('admin/v1/');
+	return Redirect::to('admin/');
 });
 
-Route::group(array('prefix' => 'admin/v1/'), function()
+Route::group(array('prefix' => 'admin/'), function()
 {	
 	//Login
 	Route::get('/',  array('as'=>'login.index','uses' => 'UsersController@login'));
@@ -44,7 +44,7 @@ Route::group(array('prefix' => 'admin/v1/'), function()
 
 // Route group for API versioning
 // Route::group(array('prefix' => 'admin/v1/','before'=>'auth|auth.session|auth.status|password_change|password_expiry'), function()
-Route::group(array('prefix' => 'admin/v1/','before'=>'auth|auth.session|auth.status|check_merchant'), function()
+Route::group(array('prefix' => 'admin/','before'=>'auth|auth.session|auth.status|check_merchant'), function()
 {	
 	
 	Route::get('dashboard',  array('as'=>'dashboard','uses' => 'BaseController@dashboard'));
@@ -106,4 +106,11 @@ Route::group(array('prefix' => 'admin/v1/','before'=>'auth|auth.session|auth.sta
 	Route::post('points', array('as'=>'points.index','uses' => 'PointsController@bets'));
 	Route::get('points', array('as'=>'points.player','uses' => 'PointsController@player'));
 	Route::get('points/logout/{id}',array('as'=>'points.logout','uses' => 'PointsController@logout'));
+	
+	Route::get('points/redeem/',array('as'=>'points.redeem','uses' => 'RedeemPointsController@index'));
+	Route::get('points/rfid/', array('as' => 'points.rfid','uses' => 'PointsController@rfid'));
+	Route::post('points/redeem/',array('as'=>'points.redeem.post','uses' => 'RedeemPointsController@post'));
+
+	Route::get('reports', array('as'=>'reports.index','uses' => 'ReportsController@coupon'));
+	Route::get('reports/redeem/', array('as'=>'reports.redeem','uses' => 'ReportsController@coupon'));
 });

@@ -111,4 +111,19 @@ class PointsController extends \BaseController {
 		}
 	}
 
+	public function rfid()
+	{
+		$user_points = User::with('points')->where('rfid_serial' , 'test12345')->get()->first();
+
+		$response = array(
+			'status' => 200, 
+			'rfid_serial' => $user_points->rfid_serial,
+			'points' => $user_points->points->credits,
+			'player_name' => $user_points->username,
+			'player_id' => $user_points->id
+		);
+
+		return Response::json($response,$response['status']);
+	}
+
 }

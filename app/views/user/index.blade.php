@@ -81,40 +81,40 @@
                                         <td>{{ $row->created_at }}</td>
                                         <td>
                                             @if (array_key_exists('user.show',$acl['access']))
-                                            <a href="{{{ URL::to('admin/v1/user/show') }}}/{{ $row->id }}" class="btn btn-sm btn-primary">
+                                            <a href="{{{ URL::action('user.show',$row->id) }}}" class="btn btn-sm btn-primary">
                                                 <span class="glyphicon glyphicon-eye-open"></span>
                                             </a>
                                             @endif
 
                                             @if (array_key_exists('user.edit',$acl['access']))
-                                            <a href="{{{ URL::to('admin/v1/user/edit') }}}/{{ $row->id }}" class="btn btn-sm btn-success">
+                                            <a href="{{{ URL::action('user.edit', $row->id) }}}" class="btn btn-sm btn-success">
                                                 <span class="glyphicon glyphicon-pencil"></span>
                                             </a>
 
                                                 @if ($row->status == 0)
-                                                    <a href="{{{ URL::to('admin/v1/user/updatestatus') }}}/{{ $row->id }}" class="btn btn-sm btn-success" title="Unlock User">
+                                                    <a href="{{{ URL::action('user.update.status' , $row->id) }}}" class="btn btn-sm btn-success" title="Unlock User">
                                                         <span class="glyphicon glyphicon-ok"></span>
                                                     </a>
                                                 @else
-                                                    <a href="{{{ URL::to('admin/v1/user/updatestatus') }}}/{{ $row->id }}" class="btn btn-sm btn-danger" title="Lock User">
+                                                    <a href="{{{ URL::action('user.update.status', $row->id) }}}" class="btn btn-sm btn-danger" title="Lock User">
                                                         <span class="glyphicon glyphicon-remove"></span>
                                                     </a>
                                                 @endif
 
                                             @endif
 
-                                            <a href="{{{ URL::to('admin/v1/user/reset_password') }}}/{{ $row->id }}" class="btn btn-sm btn-primary" title="Reset Password">
+                                            <a href="{{{ URL::action('user.reset' , $row->id) }}}" class="btn btn-sm btn-primary" title="Reset Password">
                                                 <span class="glyphicon glyphicon-repeat"></span>
                                             </a>
 
                                             @if (array_key_exists('user.permission',$acl['access']))
-                                            <a href="{{{ URL::to('admin/v1/user/permission') }}}/{{ $row->id }}" class="btn btn-sm btn-warning">
+                                            <a href="{{{ URL::action('user.permission', $row->id) }}}" class="btn btn-sm btn-warning">
                                                 <span class="glyphicon glyphicon-lock"></span>
                                             </a>
                                             @endif
 
                                             @if (array_key_exists('user.delete',$acl['access']))
-                                            <a href="{{{ URL::to('admin/v1/user/delete') }}}/{{ $row->id }}" class="btn btn-sm btn-danger">
+                                            <a href="{{{ URL::action('user.delete', $row->id) }}}" class="btn btn-sm btn-danger">
                                                 <span class="glyphicon glyphicon-trash"></span>
                                             </a>
                                             @endif
