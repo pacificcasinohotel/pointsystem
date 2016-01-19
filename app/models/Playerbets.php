@@ -27,4 +27,9 @@ class Playerbets extends Eloquent {
 		return $this->belongsto('User','account_id')->select('id','username','fullname');
 	}
 
+	public function operator()
+	{
+		return $this->belongsto('User','added_by')->select('id','username','fullname');
+	}
+
 }

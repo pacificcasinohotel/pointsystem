@@ -21,11 +21,11 @@ class ACL {
             if($row->value == 1)
             {
                $permission['access'][$row->permission->perm_key] = array(
-                                          'id'        => $row->permission->id,
-                                          'perm_name' => $row->permission->perm_name,
-                                          'perm_key'  => $row->permission->perm_key,
-                                          'visible'   => $row->permission->visible
-                                        ); ;
+                  'id' => $row->permission->id,
+                  'perm_name' => $row->permission->perm_name,
+                  'perm_key'  => $row->permission->perm_key,
+                  'visible'   => $row->permission->visible
+              );
             }
             else
             {
@@ -53,10 +53,10 @@ class ACL {
             if($row->value == 1)
             {
                $permission[$row->permission->id] = array(
-                                          'id'        => $row->permission->id,
-                                          'perm_name' => $row->permission->perm_name,
-                                          'perm_key'  => $row->permission->perm_key
-                                        );
+                'id' => $row->permission->id,
+                'perm_name' => $row->permission->perm_name,
+                'perm_key'  => $row->permission->perm_key
+               );
             }
             else
             {
@@ -174,18 +174,19 @@ class ACL {
                 $permKey = explode('.', $row->perm_key);
                 if($row->visible == 1){
                   $groupAccess['nav'][$permKey[0]][] = array(
-                                            'id'        => $row->id,
-                                            'perm_name' => $row->perm_name,
-                                            'perm_key'  => $row->perm_key,
-                                            'visible'   => $row->visible
-                                          );
+                    'id' => $row->id,
+                    'perm_name' => $row->perm_name,
+                    'perm_key'  => $row->perm_key,
+                    'visible'   => $row->visible
+                  );
                 }
+
                 $groupAccess['access'][$row->perm_key] = array(
-                                          'id'        => $row->id,
-                                          'perm_name' => $row->perm_name,
-                                          'perm_key'  => $row->perm_key,
-                                          'visible'   => $row->visible
-                                        ); 
+                  'id' => $row->id,
+                  'perm_name' => $row->perm_name,
+                  'perm_key'  => $row->perm_key,
+                  'visible'   => $row->visible
+                ); 
             }
         }
 

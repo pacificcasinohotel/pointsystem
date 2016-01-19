@@ -8,8 +8,6 @@ class ReportsController extends \BaseController {
 	 * @return Response
 	 */
 
-
-
 	public function coupon()
 	{
 		if(ACL::checkUserPermission('reports.redeem') == false){
@@ -26,6 +24,26 @@ class ReportsController extends \BaseController {
 			'title'	   => $title);
 
 		return View::make('reports/redeem',$data);
+
+	}
+
+	public function bets()
+	{
+		if(ACL::checkUserPermission('reports.bets') == false){
+			return Redirect::action('dashboard');
+		}
+
+		$bets = Playerbets::with('playerdetails','operator')->get();
+
+		$title   = 'Player Bets Report';
+
+		$data = array(
+			'acl' 	   => ACL::buildACL(), 
+			'bets'     => $bets,
+			'title'	   => $title
+		);
+
+		return View::make('reports/bets',$data);
 
 	}
 

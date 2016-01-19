@@ -113,4 +113,6 @@ Route::group(array('prefix' => 'admin/','before'=>'auth|auth.session|auth.status
 
 	Route::get('reports', array('as'=>'reports.index','uses' => 'ReportsController@coupon'));
 	Route::get('reports/redeem/', array('as'=>'reports.redeem','uses' => 'ReportsController@coupon'));
+	Route::get('reports/bets/', array('as'=>'reports.bets','uses' => 'ReportsController@bets'));
+
 });

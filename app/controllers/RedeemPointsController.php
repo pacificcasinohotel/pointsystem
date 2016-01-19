@@ -55,12 +55,8 @@ class RedeemPointsController extends \BaseController {
 		
 			}
 			catch(Exception $e){
-			// return false;
 				print $e;
 			}
-
-
-			exit;
 		}
 		else
 		{	
