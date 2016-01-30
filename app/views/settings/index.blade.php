@@ -56,7 +56,7 @@
                                         <td>{{ date("M d Y h:i:s A",strtotime($row->updated_at)) }} </td>
                                         <td>
                                             @if (array_key_exists('groups.edit',$acl['access']))
-                                            <a href="{{{ URL::to('admin/v1/settings/edit') }}}/{{ $row->id }}" class="btn btn-sm btn-success">
+                                            <a href="{{{ URL::action('settings.edit',$row->id) }}}" class="btn btn-sm btn-success">
                                                 <span class="glyphicon glyphicon-pencil"></span>
                                             </a>
                                             @endif

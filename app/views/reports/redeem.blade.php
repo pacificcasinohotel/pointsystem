@@ -1,7 +1,7 @@
 @extends('layouts.main')
 {{-- Web site Title --}}
 @section('title')
-    {{{ $title }}}
+    {{{$title}}}
 @stop
 
 {{-- Content --}}
@@ -52,7 +52,7 @@
                         <!-- widget content -->
                         <div class="widget-body no-padding">
 
-                            <table id="dt_basic" class="table table-striped table-bordered" width="100%">
+                            <table id="datatable_tabletools" class="table table-striped table-bordered" width="100%">
                                 <thead>
                                     <tr>
                                         <th><i class="fa fa-fw fa-gamepad text-muted hidden-md hidden-sm hidden-xs"></i> Playername</th>

@@ -242,6 +242,14 @@ class PermissionsTableSeeder extends Seeder {
         $permission->date_created = new DateTime;
         $permission->save();
 
+        $permission = new Permission;
+        $permission->perm_name = 'Player Bets Report';
+        $permission->perm_key  = 'reports.bets';
+        $permission->perm_description  = 'Player Bets Report';
+        $permission->visible   = 1;
+        $permission->date_created = new DateTime;
+        $permission->save();
+
         $this->command->info('Permission table seeded!');
     }
 

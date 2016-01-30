@@ -404,7 +404,8 @@
     {{ HTML::script('assets/js/plugin/datatables/jquery.dataTables.min.js') }}  
     {{ HTML::script('assets/js/plugin/datatables/dataTables.colVis.min.js') }}  
     {{ HTML::script('assets/js/plugin/datatables/dataTables.tableTools.min.js') }}  
-    {{ HTML::script('assets/js/plugin/datatables/dataTables.bootstrap.min.js') }}  
+    {{ HTML::script('assets/js/plugin/datatables/dataTables.bootstrap.min.js') }} 
+    {{ HTML::script('assets/js/plugin/datatable-responsive/datatables.responsive.min.js') }} 
     {{ HTML::script('assets/js/custom.js') }}
     {{ HTML::script('assets/js/plugin/bootstrap-tags/bootstrap-tagsinput.min.js') }}
     {{ HTML::script('assets/js/plugin/maxlength/bootstrap-maxlength.min.js') }}  

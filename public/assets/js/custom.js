@@ -1,4 +1,15 @@
 $(document).ready(function() {
+      
+        var responsiveHelper_dt_basic = undefined;
+        var responsiveHelper_datatable_fixed_column = undefined;
+        var responsiveHelper_datatable_col_reorder = undefined;
+        var responsiveHelper_datatable_tabletools = undefined;
+        
+        var breakpointDefinition = {
+          tablet : 1024,
+          phone : 480
+        };
+
 
       $("#smart-mod-eg1").click(function(e) {
         $.SmartMessageBox({
@@ -179,6 +190,52 @@ $(document).ready(function() {
         pageSetUp();
 
         $('#dt_basic').dataTable();
+
+      /* TABLETOOLS */
+      $('#datatable_tabletools').dataTable({
+        
+        // Tabletools options: 
+        //   https://datatables.net/extensions/tabletools/button_options
+        "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-6 hidden-xs'T>r>"+
+            "t"+
+            "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-sm-6 col-xs-12'p>>",
+            "oTableTools": {
+               "aButtons": [
+                 "copy",
+                 "csv",
+                 {
+                   "sExtends": "xls",
+                   "sTitle": "pointsredeem_report",
+                },
+                {
+                  "sExtends": "pdf",
+                  "sTitle": "pointsredeem_report",
+                  "sPdfMessage": "Points Redeemed Points",
+                  "sPdfSize": "letter"
+                },
+                {
+                  "sExtends": "print",
+                  "sMessage": "Points Redeemed Points <i>(press Esc to close)</i>"
+                }
+                 ],
+                "sSwfPath": "../../assets/js/plugin/datatables/swf/copy_csv_xls_pdf.swf"
+            },
+        "autoWidth" : true,
+        "preDrawCallback" : function() {
+          // Initialize the responsive datatables helper once.
+          if (!responsiveHelper_datatable_tabletools) {
+            responsiveHelper_datatable_tabletools = new ResponsiveDatatablesHelper($('#datatable_tabletools'), breakpointDefinition);
+          }
+        },
+        "rowCallback" : function(nRow) {
+          responsiveHelper_datatable_tabletools.createExpandIcon(nRow);
+        },
+        "drawCallback" : function(oSettings) {
+          responsiveHelper_datatable_tabletools.respond();
+        }
+      });
+      
+      /* END TABLETOOLS */
 
         $('#customer_dt').dataTable({
           "aoColumnDefs": [ { "bSortable": false, "aTargets": [ 0,11 ] } ],

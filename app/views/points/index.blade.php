@@ -65,7 +65,7 @@
                                 <tbody>
                                     @if (!empty($userList))
                                         @foreach($userList as $row)
-                                            @if($row->user->rfid_login == 1) 
+                                            @if($row->user->rfid_login == 1 && $row->user->ip_address == $client_ip) 
                                     <tr>    
                                         <td>{{ $row->user->username }}</td>
                                         <td>{{ $row->user->fullname }}</td>

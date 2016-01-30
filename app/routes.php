@@ -37,7 +37,9 @@ Route::group(array('prefix' => 'admin/'), function()
 	Route::post('user/profile/',	array('as' => 'user.profile','before'=> 'auth|auth.session|auth.status','uses' => 'UsersController@profile'));
 	Route::get('user/reset_password/{id}',	array('as' => 'user.reset','before'=> 'auth|auth.session|auth.status','uses' => 'UsersController@resetPassword'));
 
-	Route::get('redeem/points/',  array('as'=>'redeem.points','uses' => 'RedeemPointsController@index'));
+	// Route::get('redeem/points/',  array('as'=>'redeem.points','uses' => 'RedeemPointsController@index'));
+
+	Route::get('login/player/{rfid}',  array('as'=>'login.player','uses' => 'ApiController@login_player'));
 });
 
 

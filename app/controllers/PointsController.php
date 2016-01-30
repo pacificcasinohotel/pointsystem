@@ -25,13 +25,14 @@ class PointsController extends \BaseController {
 
 		$title 		= Lang::get('Player List');
 
-		$user = $userList->toArray();
+		$client_ip = Request::getClientIp(true);
 
 		$data = array(
 			'acl' 		 => ACL::buildACL(), 
 			'userList'	 => $userList,
 			'title'		 => $title,
-			'form_open'  => $form_open
+			'form_open'  => $form_open,
+			'client_ip'  => $client_ip
 		);
 
 		return View::make('points/index',$data);
@@ -113,15 +114,45 @@ class PointsController extends \BaseController {
 
 	public function rfid()
 	{
-		$user_points = User::with('points')->where('rfid_serial' , 'test12345')->get()->first();
+		$app_path	= 'python ' . app_path() . '/python/rfid_serial.py ';
 
-		$response = array(
-			'status' => 200, 
-			'rfid_serial' => $user_points->rfid_serial,
-			'points' => $user_points->points->credits,
-			'player_name' => $user_points->username,
-			'player_id' => $user_points->id
-		);
+		$output = shell_exec($app_path);
+
+		$json = json_decode($output,true);
+
+		if($json['status'] == 200)
+		{
+			$user_points = User::with('points')->where('rfid_serial' , $json['tagid'])->get();
+
+			if(!empty($user_points->first()))
+			{
+				$player_details = $user_points->first();
+
+				$response = array(
+					'status' => 200, 
+					'rfid_serial' => $player_details->rfid_serial,
+					'points' => $player_details->points->credits,
+					'player_name' => $player_details->username,
+					'player_id' => $player_details->id
+				);
+			}
+			else
+			{
+				$response = array(
+					'title'   => 'Card not registered',
+					'status'  => 400,
+					'message' => 'This card is not yet registered to any player.'
+					);
+			}
+		}
+		else
+		{
+			$response = array(
+				'title'   => 'Request Time Out',
+				'status'  => 400,
+				'message' => ($json['error']) ?  $json['error'] : 'Please place the card in the reader.'
+			);
+		}
 
 		return Response::json($response,$response['status']);
 	}
